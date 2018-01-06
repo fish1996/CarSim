@@ -114,6 +114,7 @@ public:
     void OnReverseReleased();
     /** Handle Handbrake pressed */
 
+	void SetApiControl();
     /** Setup the strings used on the hud */
     void UpdateInCarHUD();
 

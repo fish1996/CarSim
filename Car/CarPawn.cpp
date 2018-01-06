@@ -307,6 +307,8 @@ void ACarPawn::setupInputBindings()
     UAirBlueprintLib::BindAxisToKey(FInputAxisKeyMapping("MoveRight", EKeys::Left, -1), this,
         this, &ACarPawn::MoveRight);
 
+	UAirBlueprintLib::BindActionToKey("SetApiControl", EKeys::W, this, &ACarPawn::SetApiControl);
+	 
     UAirBlueprintLib::BindActionToKey("Handbrake", EKeys::End, this, &ACarPawn::OnHandbrakePressed, true);
     UAirBlueprintLib::BindActionToKey("Handbrake", EKeys::End, this, &ACarPawn::OnHandbrakeReleased, false);
 
@@ -325,6 +327,16 @@ void ACarPawn::setupInputBindings()
     //below is not needed
     //UAirBlueprintLib::BindActionToKey("Reverse", EKeys::Down, this, &ACarPawn::OnReversePressed, true);
     //UAirBlueprintLib::BindActionToKey("Reverse", EKeys::Down, this, &ACarPawn::OnReverseReleased, false);
+}
+
+void ACarPawn::SetApiControl() 
+{
+	if (!api_->isApiControlEnabled()) {
+		api_->enableApiControl(true);
+	}
+	else {
+		api_->enableApiControl(false);
+	}	
 }
 
 void ACarPawn::MoveForward(float Val)
@@ -469,7 +481,7 @@ void ACarPawn::updateCarControls()
 void ACarPawn::BeginPlay()
 {
     Super::BeginPlay();
-
+	
     // Start an engine sound playing
     EngineSoundComponent->Play();
 }
